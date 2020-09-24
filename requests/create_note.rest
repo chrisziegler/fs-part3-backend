@@ -1,7 +1,0 @@
-POST http://localhost:3001/api/notes
-Content-Type: application/json
-
-{
-  "content": "Added POST route to index.js - No arbitrary fields allowed!",
-  "important": true
-}

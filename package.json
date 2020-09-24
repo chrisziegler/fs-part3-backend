@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:ui": "rm -rf build && cd ../fs-helsinki/part2/courseinfo3 && npm run build && cp -r build ../../../fs-part3-review",
+    "build:ui": "rm -rf build && cd ../fs-helsinki/part2/phonebook && npm run build && cp -r build ../../../fs-part3-backend",
     "deploy": "git push heroku master",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",
     "logs:prod": "heroku logs --tail",
@@ -17,7 +17,7 @@
     "url": "none"
   },
   "keywords": [
-    "fs-helinski"
+    "fs-phonebook"
   ],
   "author": "Chris Ziegler",
   "license": "ISC",
