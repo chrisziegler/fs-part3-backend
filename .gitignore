@@ -1,1 +1,3 @@
 node_modules
+
+#production - dont .gitignore build folder in repo for deployment to heroku
