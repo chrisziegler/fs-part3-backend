@@ -106,7 +106,7 @@ app.delete('/api/persons/:id', (request, response) => {
 })
 
 const unknownEndpoint = (request, response) => {
-  response.status(404).send({ error: 'unknown endpoint' })
+  response.status(404).send(four04)
 }
 
 app.use(unknownEndpoint)
