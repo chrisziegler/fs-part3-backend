@@ -1,10 +1,10 @@
 {
-  "name": "backend",
+  "name": "phonebook-app-static-server",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:ui": "rm -rf build && cd ../fs-helsinki/part2/phonebook && npm run build && cp -r build ../../../fs-part3-backend",
+    "build:ui": "rm -rf build && cd ../fs-helsinki/part2/phonebook && npm run build && cp -r build ../../../fs-part3-phonebook",
     "deploy": "git push heroku master",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",
     "logs:prod": "heroku logs --tail",
@@ -24,7 +24,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mongoose": "^5.10.7"
+    "mongoose": "^5.10.7",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

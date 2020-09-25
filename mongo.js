@@ -1,14 +1,6 @@
 const mongoose = require('mongoose')
 
-// if (process.argv.length < 3) {
-//   console.log(
-//     'Please provide the password as an argument: node mongo.js <password>',
-//   )
-//   process.exit(1)
-// }
-
 const args = process.argv.slice(2)
-console.log(args)
 const [password, name, number] = args
 if (!password) {
   console.log(
@@ -25,7 +17,6 @@ if (args.length === 2) {
 }
 
 const dbName = 'phone-app'
-
 const url = `mongodb+srv://cz-fs-helsinki:${password}@cluster0.otgwe.mongodb.net/${dbName}?retryWrites=true&w=majority`
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -43,7 +34,7 @@ if (name && number) {
     number,
   })
   person.save().then(result => {
-    console.log(`Added ${person} number ${number} to phonebook`)
+    console.log(`Added ${name} number ${number} to phonebook`)
     mongoose.connection.close()
   })
 }
