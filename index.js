@@ -1,34 +1,14 @@
+require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
+const Person = require('./models/person')
+
 // uncomment all for logging to file using stream - logs to console by default
 // const fs = require('fs')
 // const path = require('path')
 // const appLogStream = fs.createWriteStream(path.join(__dirname, 'app.log'))
 
-let persons = [
-  {
-    name: 'Jerry Cantrell',
-    number: '867-5309',
-    id: 1,
-  },
-  {
-    name: 'Jim Gaffigan',
-    number: '555-2121',
-    id: 2,
-  },
-  {
-    name: 'Dwight D. Eisenhauer',
-    number: '867-5310',
-    id: 3,
-  },
-  {
-    name: 'Vladimir Putin',
-    number: '666-1212',
-    id: 4,
-  },
-]
-const entries = persons.length
 const four04 = `<body style="background: orangered;">
 <h1 style="position: fixed; top: 48%; left: 37%; color: white; text-shadow: 1px 1px 1px #000;">404 - Resource Not Found</h1>`
 
@@ -58,7 +38,9 @@ app.get('/info', (req, res) => {
 })
 
 app.get('/api/persons', (req, res) => {
-  res.json(persons)
+  Person.find({}).then(persons => {
+    res.json(persons)
+  })
 })
 
 app.get('/api/persons/:id', (request, response) => {
@@ -79,23 +61,23 @@ app.post('/api/persons', (request, response) => {
   const body = request.body
   // for morgan logging
   request.info = body
-  if (!body.name || !body.number) {
+  if (body.name === undefined || body.number === undefined) {
     return response.status(400).send({
       error: 'both name and number are required',
     })
   }
-  if (persons.find(person => person.name === body.name)) {
-    return response.status(404).send({
-      error: 'name must be unique',
-    })
-  }
-  const person = {
+  // if (persons.find(person => person.name === body.name)) {
+  //   return response.status(404).send({
+  //     error: 'name must be unique',
+  //   })
+  // }
+  const person = new Person({
     name: body.name,
     number: body.number,
-    id: getRandom(),
-  }
-  persons = persons.concat(person)
-  response.json(person)
+  })
+  person.save().then(savedPerson => {
+    response.json(savedPerson)
+  })
 })
 
 app.delete('/api/persons/:id', (request, response) => {
@@ -111,7 +93,7 @@ const unknownEndpoint = (request, response) => {
 
 app.use(unknownEndpoint)
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
