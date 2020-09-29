@@ -1,0 +1,7 @@
+PUT http://localhost:3001/api/persons/5f6d83da82fa4b0b50afa0ca
+Content-Type: application/json
+
+{
+  "name": "D.B. Sweeny II",
+  "number": "331-1997"
+}
