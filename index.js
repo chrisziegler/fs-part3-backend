@@ -58,7 +58,7 @@ app.get('/api/persons/:id', (request, response, next) => {
 })
 
 // POST route - save new person
-app.post('/api/persons', (request, response) => {
+app.post('/api/persons', (request, response, next) => {
   const body = request.body
   // for morgan logging
   request.info = body
@@ -71,9 +71,12 @@ app.post('/api/persons', (request, response) => {
     name: body.name,
     number: body.number,
   })
-  person.save().then(savedPerson => {
-    response.json(savedPerson)
-  })
+  person
+    .save()
+    .then(savedPerson => {
+      response.json(savedPerson)
+    })
+    .catch(error => next(error))
 })
 
 // PUT route -- update person
@@ -113,6 +116,12 @@ const errorHandler = (error, request, response, next) => {
 
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformed id' })
+  } else if (error.name === 'MongoError') {
+    return response.status(400).send({ error: 'duplicate name' })
+  } else if (error.name === 'ValidationError') {
+    return response.status(400).send({
+      error: error.message,
+    })
   }
   next(error)
 }
