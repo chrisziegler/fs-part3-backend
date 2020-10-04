@@ -1,7 +1,7 @@
-PUT http://localhost:3001/api/persons/5f6d83da82fa4b0b50afa0ca
+PUT http://localhost:3001/api/persons/5f72bd78a0af9352dcb928a5
 Content-Type: application/json
 
 {
-  "name": "D.B. Sweeny II",
-  "number": "331-1997"
+  "name": "Jenny Craig",
+  "number": "867-5309"
 }
